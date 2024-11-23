@@ -1,0 +1,28 @@
+name: Auto Commit
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # This runs the action every hour (adjust as needed)
+  workflow_dispatch:  # Allows you to manually trigger the workflow if needed
+
+jobs:
+  auto_commit:
+    runs-on: ubuntu-latest  # Specify the operating system for the job
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Checkout the repository to the runner
+
+      - name: Commit changes
+        run: |
+          # Create or modify a file (e.g., add a timestamp to the file)
+          echo "Auto commit at $(date)" > file.txt
+
+          # Configure Git user information (if not already set globally)
+          git config --global user.name "Your GitHub Username"
+          git config --global user.email "your-email@example.com"
+
+          # Stage, commit, and push changes
+          git add .
+          git commit -m "Auto commit: $(date)"
+          git push origin main  # Push to the main branch (change if your default branch is different)
