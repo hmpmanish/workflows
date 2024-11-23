@@ -2,23 +2,23 @@ name: Auto Commit
 
 on:
   schedule:
-    - cron: '0 * * * *'  # This runs the action every hour (adjust as needed)
-  workflow_dispatch:  # Allows you to manually trigger the workflow if needed
+    - cron: '30 4 * * *'  # Runs every day at 10:00 AM IST (4:30 AM UTC)
+  workflow_dispatch:  # Allows manual triggering of the workflow
 
 jobs:
   auto_commit:
-    runs-on: ubuntu-latest  # Specify the operating system for the job
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # Checkout the repository to the runner
+        uses: actions/checkout@v2  # Checks out the repository to the runner
 
       - name: Commit changes
         run: |
           # Create or modify a file (e.g., add a timestamp to the file)
           echo "Auto commit at $(date)" > file.txt
 
-          # Configure Git user information (if not already set globally)
+          # Configure Git user information (if it's not already configured)
           git config --global user.name "Your GitHub Username"
           git config --global user.email "your-email@example.com"
 
